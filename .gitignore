@@ -1,6 +1,6 @@
 # MetaTrader compiled files
-*.ex4
-*.ex5
+#*.ex4
+
 
 # MetaEditor logs and cache
 *.log
