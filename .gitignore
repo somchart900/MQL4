@@ -1,0 +1,12 @@
+# MetaTrader compiled files
+*.ex4
+*.ex5
+
+# MetaEditor logs and cache
+*.log
+*.mqh~*
+*.mq4~*
+*.bak
+*.tmp
+*.dat
+
