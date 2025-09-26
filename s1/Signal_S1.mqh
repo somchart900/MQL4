@@ -8,6 +8,7 @@
 
 bool Signal_S1(int OP_VALUE) {
    static int step    = 0;
+   static int step2   = 0;
    double     CLOSE_1 = iClose(Symbol(), PERIOD_M5, 1);
    double     OPEN_1  = iOpen(Symbol(), PERIOD_M5, 1);
    double     OPEN_0  = iOpen(Symbol(), PERIOD_M5, 0);
@@ -41,32 +42,32 @@ bool Signal_S1(int OP_VALUE) {
       }
    }
 
-// --------------------------------------------------------------
-if(OP_VALUE == OP_BUY) {
-   if(LOW_1 < MA_1) {   // ถ้ามีการปิดแท่งตัดเส้น MA_1และสเต็ปยังเป็น 0 ปรับสเต็ปเป็น 1
-      if(CLOSE_1 > MA_1) {
-         if(step == 0) {
-            step = 1;
+   // --------------------------------------------------------------
+   if(OP_VALUE == OP_BUY) {
+      if(LOW_1 < MA_1) {   // ถ้ามีการปิดแท่งตัดเส้น MA_1และสเต็ปยังเป็น 0 ปรับสเต็ปเป็น 1
+         if(CLOSE_1 > MA_1) {
+            if(step2 == 0) {
+               step2 = 1;
+            }
          }
       }
-   }
-   //---
-   if(step == 1) {
-      if(CLOSE_1 < MA_1) {
-         step = 0;   // reset step หากมีการย้อนกลับก่อนเข้าสเต็ป 2
-      }
-      if(SAR_1 > MA_1) {
-         if(SAR_1 < OPEN_1) {
-            if(SAR_0 > OPEN_0) {
-               step = 0;   // reset step เมื่อถึงสเต็ป 2 แล้ว
-               return (true);
+      //---
+      if(step2 == 1) {
+         if(CLOSE_1 < MA_1) {
+            step2 = 0;   // reset step หากมีการย้อนกลับก่อนเข้าสเต็ป 2
+         }
+         if(SAR_1 > MA_1) {
+            if(SAR_1 < OPEN_1) {
+               if(SAR_0 > OPEN_0) {
+                  step2 = 0;   // reset step เมื่อถึงสเต็ป 2 แล้ว
+                  return (true);
+               }
             }
          }
       }
    }
-}
-// --------------------------------------------------------------
-return (false);
+   // --------------------------------------------------------------
+   return (false);
 }
 
 #endif
