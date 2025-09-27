@@ -31,6 +31,21 @@
 #include "t/TrailingStop.mqh"
 input double percent = 2.0;
 input double rewards = 1.2;
+// 
+enum TrailingStopOption
+{
+   TrailingStop_OFF = 0,   
+   TrailingStop_ON  = 1      
+};
+enum ProfitLockOption
+{
+   ProfitLock_OFF = 0,   
+   ProfitLock_ON  = 1      
+};
+// สร้าง input 
+input ProfitLockOption UseProfitLock = ProfitLock_OFF;
+input TrailingStopOption UseTrailingStop = TrailingStop_OFF;
+
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
@@ -101,7 +116,16 @@ void OnTick() {
       }
    }
    //------------------------------------------------------------------
-   ProfitLock((GetSL-200), 100);
-   TrailingStop((GetSL+200),(GetSL-100));
+   if (UseProfitLock == ProfitLock_ON)
+   {
+      ProfitLock((GetSL-200),100);
+   }
+   
+   if (UseTrailingStop == TrailingStop_ON)
+   {
+      TrailingStop((GetSL+200),(GetSL-100));
+   }
+   
+   
 }
 //+------------------------------------------------------------------+
