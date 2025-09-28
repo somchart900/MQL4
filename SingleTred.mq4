@@ -30,7 +30,7 @@
 #include "t/SetTPSL.mqh"
 #include "t/TrailingStop.mqh"
 input double percent = 2.0;
-input double rewards = 2.5;
+input double rewards = 1.5;
 // 
 enum TrailingStopOption
 {
@@ -43,8 +43,8 @@ enum ProfitLockOption
    ProfitLock_ON  = 1      
 };
 // สร้าง input 
-input ProfitLockOption UseProfitLock = ProfitLock_ON;
-input TrailingStopOption UseTrailingStop = TrailingStop_ON;
+input ProfitLockOption UseProfitLock = ProfitLock_OFF;
+input TrailingStopOption UseTrailingStop = TrailingStop_OFF;
 
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
@@ -83,6 +83,7 @@ void OnTick() {
                GetSL            = GetSL_S1(OP_BUY);
                int    SL        = GetSL * 2;
                double RiskMoney = RiskMoney(percent);
+               Comment(RiskMoney);
                double Lots      = RiskLots(Symbol(), RiskMoney, SL);
                Action(OP_BUY, Lots);
                double TP = NormalizeDouble(SL * rewards, 2);
@@ -105,6 +106,7 @@ void OnTick() {
                GetSL        = GetSL_S1(OP_SELL);
                int    SL    = GetSL * 2;
                double RiskMoney = RiskMoney(percent);
+               Comment(RiskMoney);
                double Lots      = RiskLots(Symbol(), RiskMoney, SL);
                Action(OP_SELL, Lots);
                double TP = NormalizeDouble(SL * rewards, 2);

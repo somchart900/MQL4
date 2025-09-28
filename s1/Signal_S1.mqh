@@ -66,7 +66,7 @@ bool Signal_S1(int OP_VALUE) {
          }
       }
    }
-   Comment("step_sell = " + IntegerToString(step_sell) + ", step_buy = " + IntegerToString(step_buy));
+  // Comment("step_sell = " + IntegerToString(step_sell) + ", step_buy = " + IntegerToString(step_buy));
    // --------------------------------------------------------------
    return (false);
 }
