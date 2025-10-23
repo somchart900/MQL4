@@ -60,6 +60,7 @@ int buy_step = 0;
 int sell_step = 0;
 int monitor_stat = 0;
 int SL = 0;
+string active = "no set";
 void OnTick()
   {
    double HIGH_1 = iHigh(Symbol(),PERIOD_M5,1);
@@ -98,6 +99,7 @@ void OnTick()
      }
    if(TimeFilterLocal(6,50,22,30))
      {
+       active = "Work up Time";
       //---------------------------------------------------
       if(CLOSE_1 > SMA_1)
         {
@@ -183,6 +185,8 @@ void OnTick()
               }
            }
         }
+     }else {
+     active = "Time Out";
      }//--endtime
 //-----------------------------------------------------------------------------------------
    GetStat();
@@ -222,6 +226,7 @@ void OnTick()
            + "monitor_stat = " + IntegerToString(monitor_stat) + "\n"
            + "SL= " + IntegerToString(SL) + "\n"
            + "PeakEquity= " + DoubleToString(GlobalVariableGet("PeakEquity"), 2) + "\n"
+           + "Time status= " + active + "\n"
           );
   }
 //+----------------------------------------------------------------------------------------------+
