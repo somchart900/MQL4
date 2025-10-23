@@ -1,21 +1,22 @@
 //+------------------------------------------------------------------+
-//|  Finame: GetSL_S1.mqh                                             |
+//|  Finame: GetSL.mqh                                             |
 //|  Utility: calculate stop loss price                               |
-//|  Usage:int SL = GetSL_S1(OP_BUY);OR  int SL = GetSL_S1(OP_SELL);  |                                    |
+//|  Usage:int SL = GetSL(OP_BUY);OR  int SL = GetSL(OP_SELL);  |                                    |
 //+------------------------------------------------------------------+
-#ifndef GetSL_S1_MQH
-#define GetSL_S1_MQH
+#ifndef GetSL_MQH
+#define GetSL_MQH
 
-int GetSL_S1(int OP_VALUE) {
-   double SAR_1 = iSAR(Symbol(), PERIOD_M5, 0.02, 0.2, 1);
-   double SAR_0 = iSAR(Symbol(), PERIOD_M5, 0.02, 0.2, 0);
+int GetSL(int OP_VALUE) {
+   double     G_CLOSE_1   = iClose(Symbol(), PERIOD_M5, 1);
+   double     G_HIGH_1    = iHigh(Symbol(), PERIOD_M5, 1);
+   double     G_LOW_1     = iLow(Symbol(), PERIOD_M5, 1);
 
    double diff;
 
    if(OP_VALUE == OP_BUY)
-      diff = SAR_0 - SAR_1;
+      diff = G_CLOSE_1 - G_LOW_1;
    else if(OP_VALUE == OP_SELL)
-      diff = SAR_1 - SAR_0;
+      diff = G_HIGH_1 - G_CLOSE_1;
    else {
       Print("GetSL_S1: Invalid OP_VALUE = ", OP_VALUE);
       return 0;
